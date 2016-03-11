@@ -1,0 +1,13 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+
+    toto
+    {{ form_start(form, {'method': 'post', 'action': path('wall_new'), 'attr': {'class': 'wall_new'}}) }}
+    {{ form_widget(form) }}
+    <div>
+        <input type="submit" value="Submit"/>
+    </div>
+    {{ form_end(form) }}
+
+{% endblock fos_user_content %}

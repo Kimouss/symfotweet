@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Tweets list</h1>
+    <div class="col-md-offset-2 col-md-8">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Usertweet</th>
+                <th>Tweet</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for tweet in tweets %}
+                <tr>
+                    <td><a href="https://twitter.com/{{ tweet.userTweet }}">{{ tweet.userTweet }}</td>
+                    <td>{{ tweet.tweet }}</td>
+                    <td>{{ tweet.date }}</td>
+                    <td>
+                        {% if tweet.publish == 0 %}
+                            <form action="{{ path('tweet_publish', {'id': tweet.id}) }}" method="POST">
+                                <input type="submit" value="Publish">
+                            </form>
+                        {% else %}
+                            <form action="{{ path('tweet_unpublish', {'id': tweet.id}) }}" method="POST">
+                                <input type="submit" value="Unpublish">
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <ul>
+        <li>
+            <a href="{{ path('tweets_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

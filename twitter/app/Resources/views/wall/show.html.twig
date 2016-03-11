@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>wall</h1>
+    {% if wall.user.id == user.id %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Recherche par</th>
+                <th>Admin</th>
+                <th>Time</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{ wall.id }}</td>
+                <td>{{ wall.name }}</td>
+                <td>{{ search }}</td>
+                <td>
+                    {% if wall.admin == 1 %}
+                        <a class="btn btn-default" href="{{ path('admin_tweets', {'id':wall.id}) }}">Gérer les tweets</a>
+                    {% else %}
+                        Non
+                    {% endif %}
+                </td>
+                <td>{{ wall.time }}</td>
+                <td>
+                    <a class="btn btn-primary" href="{{ path('wall_index') }}">Back to the list</a>
+                    <a class="btn btn-warning" href="{{ path('wall_edit', { 'id': wall.id }) }}">Edit</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    {% endif %}
+    {{ form_start(delete_form) }}
+    <input class="btn btn-danger" type="submit" value="Delete">
+    {{ form_end(delete_form) }}
+    <div class="container">
+        {% for tweet in tweets %}
+            {% if tweet.publish == 1 %}
+                <div class="col-md-offset-2 col-md-8 boxTweet" data="{{ tweet.id }}">
+                    <h2><a href="https://twitter.com/{{ tweet.userTweet}}">{{ tweet.userTweet}}</a></h2>
+                    <p>{{ tweet.tweet }}</p>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

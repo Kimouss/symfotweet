@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>wall list</h1>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Recherche par</th>
+            <th>Administrable</th>
+            <th>Time</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for wall in walls %}
+            <tr>
+                <td><a href="{{ path('wall_show', { 'id': wall.id }) }}">{{ wall.name }}</a></td>
+                <td>{{ wall.typeSearch }}{{ wall.search }}</td>
+                <td>
+                    {% if wall.admin == 1 %}
+                        Oui
+                    {% else %}
+                        Non
+                    {% endif %}
+                </td>
+                <td>{{ wall.time }}</td>
+                <td>
+                    <a class="btn btn-primary" href="{{ path('wall_show', { 'id': wall.id }) }}">show</a>
+                    <a class="btn btn-warning" href="{{ path('wall_edit', { 'id': wall.id }) }}">edit</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('wall_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}
